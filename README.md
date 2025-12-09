@@ -9,21 +9,21 @@
 
 The goal of this project is to analyze Café X’s sales data to identify:
 
-- The top-performing menu item in terms of quantity sold and revenue
-- Best selling and top revenue generators menu items   
-- Customer purchase patterns
-- Sales trends over time
+- The top-performing menu item in terms of quantity sold and revenue  
+- Best-selling and top revenue–generating menu items  
+- Customer purchase patterns  
+- Sales trends over time  
 
-Delevirables
+**Deliverables**
 
-- Cafe Menu Performance Dashboard
-- Insights that will support better business decision-making  
+- Café Menu Performance Dashboard  
+- Insights that support better business decision-making  
 
 ---
 
 ## 2. Dataset Overview
 
-**Source:** [Cafe Sales - Dirty Data for Cleaning Training](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training) (Kaggle)  
+**Source:** [Cafe Sales - Dirty Data for Cleaning Training](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training)  
 **Size:** 10,000 rows  
 
 ### Columns
@@ -31,11 +31,11 @@ Delevirables
 | Column Name        | Description                                                  | Example       |
 |--------------------|--------------------------------------------------------------|---------------|
 | Transaction ID     | Unique identifier                                            | TXN_1234567   |
-| Item               | Purchased item, may contain missing/invalid values           | Coffee        |
+| Item               | Purchased item; may contain missing/invalid values           | Coffee        |
 | Quantity           | Quantity purchased                                           | 1, 3, UNKNOWN |
 | Price Per Unit     | Item's unit price                                            | 2.00, 4.00    |
 | Total Spent        | Quantity × Price Per Unit                                    | 8.00, 12.00   |
-| Payment Method     | Method of payment, may contain invalid entries               | Cash, Card    |
+| Payment Method     | May contain missing/invalid entries                          | Cash, Card    |
 | Location           | Transaction location                                         | In-store      |
 | Transaction Date   | May contain incorrect formatting                             | 2023-01-01    |
 
@@ -56,60 +56,87 @@ Delevirables
 
 ## 3. Methodology
 
-### 3.2 Data Validation
+### 3.1 Data Validation
 
+Before performing any cleaning operations, the dataset was reviewed to assess its overall quality and identify issues that required correction. Key findings include:
 
+Code:
+```python
+
+```
+Output:
+```
+```
+
+- Multiple columns contain missing or invalid values.
+- Missing-value indicators are not standardized (e.g., *Unknown*, *ERROR*, blank cells).  
+- Several fields do not contribute to the project’s objectives and add unnecessary noise.  
+- Certain numeric fields show inconsistencies that violate expected mathematical relationships.  
+
+These validation findings guided the subsequent data-cleaning procedures.
+
+---
 
 ### 3.2 Data Cleaning
 
-#### 3.2.1 Removing unnecessary/unusesable columns
+#### 3.2.1 Removing Unnecessary or Unusable Columns
 
-Since this project is focus of analyzing the performance of the Cafe's menu items, columns **Payment Method** and **Location** are removed due to the followng reasons:
+Since the goal of this project is to analyze the performance of the café’s menu items, the columns **Payment Method** and **Location** were removed because:
 
--The amount of missing values in the columns exceeds **50%** of the entire dataset.
--The column provide no major contribution in insights regarding menu item performance.
+- Each column contains more than **50% missing values**, making them unreliable for analysis.  
+- These fields do not contribute meaningful insights toward item-level performance.  
 
 #### 3.2.2 Handling Missing or Inaccurate Values
 
-Two main strategies were used:
+Two main strategies were applied to reconstruct missing or inconsistent values:
 
-**• Using Deterministic Relationships to Reconstruct Missing Values**
+##### **• Using Deterministic Relationships to Reconstruct Missing Values**
 
-Columns **Quantity**, **Price Per Unit**, and **Total Spent** shares deterministic (functional) relationship.
+The columns **Quantity**, **Price per Unit**, and **Total Spent** share a deterministic (functional) mathematical relationship:
 
 $$
 Quantity \times Price\ per\ Unit = Total\ Spent
 $$
 
-These three variables are mathematically dependent, meaning any missing value can be reconstructed using cross-field calculations as long as the other two fields are present. This approach ensured accurate imputation of missing Quantity, Price, or Total Spent values without introducing assumptions or randomness.
+Because these fields depend directly on one another, any missing value can be accurately reconstructed as long as the remaining two values are present. This method ensures precise, non-random imputation.
 
-**• Reference-Based Imputation**  
+##### **• Reference-Based Imputation**
 
-If value in Item column is present, missing prices can also be determined using the reference price table above.  
-If an Ttem value was missing but had a unique price → item inferred.
+When the **Item** value was available, missing prices were filled using the reference price table derived from consistent entries.
+
+Additionally:
+
+- If *Item* was missing but the **price was unique**, the correct item could be inferred.  
+- If the price matched multiple items, the item was **not** imputed to avoid incorrect assumptions.  
 
 #### 3.2.3 Standardizing Missing Indicators
 
-- For numeric and date columns, entries like ERROR, UNKNOWN, or blanks → replaced with Null.
-- For string/text columns with missing values that cannot be reliably imputed (e.g., non-unique prices for items) → set to "Unknown".
+To ensure consistent handling of missing data:
+
+- Numeric and date fields containing *ERROR*, *UNKNOWN*, or blanks were replaced with **Null**.  
+- String fields that could not be reliably imputed (e.g., ambiguous item names) were standardized to **"Unknown"**.
+
+---
 
 ### 3.3 Data Analysis
 
-- Item sales volume: Measure of how many units of each item were sold.
-- Total revenue contribution: Total revenue generated by each item.
-- Menu Item Performance Rating: Combined metric of normalized sales volume and revenue to evaluate overall performance.
-- Monthly transaction frequency: Number of transactions per month.
-- Customer volume per day of the week: Insights into daily customer patterns and peak days.
+- **Item Sales Volume** — Total units sold per item  
+- **Total Revenue Contribution** — Revenue generated per item  
+- **Menu Item Performance Rating** — Combined normalized volume and revenue  
+- **Monthly Transaction Frequency** — Number of transactions per month  
+- **Customer Volume per Day of Week** — Identification of peak days  
+
+---
 
 ### 3.4 Visualizations
 
-  To visualize findings, a Power BI dashboard was created
+A Power BI dashboard was created to visualize analysis results:
 
-- KPI Cards → Total item sales, revenue generated, and transactions
-- Lollipop Charts → Top items in terms of quantity sold and revenue generated 
-- Bar Chart →  revenue share, payment method  
-- Line charts → Monthly transaction trend  
-- Heat Map → Daily Customer Volume  
+- **KPI Cards** → Top menu item, total items sold, total revenue  
+- **Lollipop Charts** → Top items by quantity and revenue  
+- **Bar Chart** → Revenue share  
+- **Line Chart** → Monthly transaction trend  
+- **Heat Map** → Daily customer volume pattern  
 
 ---
 
@@ -121,10 +148,10 @@ If an Ttem value was missing but had a unique price → item inferred.
 - Most purchased: **Coffee**, **Salad**, **Tea**  
 - Least purchased: Cake, Sandwich, Smoothie  
 
-**Trends:**
-- Coffee: consistently top 3 all year  
-- Salad: decreased in Q4  
-- Tea: increased in the second half  
+**Trends:**  
+- Coffee remained consistently in the top three.  
+- Salad showed a decline in Q4.  
+- Tea increased in popularity in the second half.
 
 ---
 
@@ -138,7 +165,7 @@ Top revenue generators:
 2. **Sandwich** – ~15%  
 3. **Smoothie** – ~15%  
 
-Low revenue items despite high volume: Coffee, Tea, Cookie  
+Low revenue despite high volume: Coffee, Tea, Cookie  
 
 ---
 
@@ -156,7 +183,7 @@ Low revenue items despite high volume: Coffee, Tea, Cookie
 | Cookie   | 0.922       | 0.188         | 0.555        | 8 |
 
 **Key Takeaway:**  
-Salad is the café’s best-performing item, showing strong sales volume and high revenue.
+Salad is the café’s best-performing item overall, offering a strong balance of sales volume and revenue.
 
 ---
 
@@ -165,14 +192,14 @@ Salad is the café’s best-performing item, showing strong sales volume and hig
 - Average: **~800 transactions/month**  
 - Lowest: February  
 - Highest: October  
-- Sales remained stable across the year  
+- Trend: Stable year-round customer activity  
 
 ---
 
-### 4.5 Customer Purchase Preference
+### 4.5 Daily Customer Volume
 
-- Location: In-store and takeaway are nearly equal  
-- Payment Method: Data too incomplete (~40% unknown) to conclude  
+- In-store and takeaway counts are nearly equal  
+- Payment method data is incomplete (~40% missing), limiting insight  
 
 ---
 
@@ -181,18 +208,20 @@ Salad is the café’s best-performing item, showing strong sales volume and hig
 ### Key Findings
 
 - Coffee, Tea, Cookie → high volume but low revenue  
-- Salad, Sandwich, Smoothie → strong revenue contributors  
-- Sales trends show stable customer activity  
+- Salad, Sandwich, Smoothie → strongest revenue contributors  
+- Monthly sales remain stable with small seasonal variations  
+
+--
 
 ### Recommendations
 
 - Promote high-revenue items (Salad, Sandwich, Smoothie)  
-- Adjust Coffee pricing to increase profitability  
-- Improve or bundle underperformers (Cookie, Tea)  
+- Slightly adjust Coffee pricing to boost revenue  
+- Bundle or reposition underperforming items (Cookie, Tea)  
 - Maintain mid-tier items (Cake, Juice)  
-- Improve data collection for payment and location fields  
 
 ---
+
 
 
 
