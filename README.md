@@ -1,7 +1,7 @@
-# ☕ Café X Sales Data Analysis  
-*A Data Cleaning and Product Performance Analysis Project*  
+# ☕ Café X Product Performance Analysis  
+*A Data Cleaning, Analysis and Visualization Project*  
 **Prepared by:** Gio Noga  
-**Date:** October 2025  
+**Date:** December 2025  
 
 ---
 
@@ -10,13 +10,13 @@
 The goal of this project is to analyze Café X’s sales data to identify:
 
 - The top-performing menu item in terms of quantity sold and revenue  
-- Best-selling and top revenue–generating menu items  
-- Customer purchase patterns  
-- Sales trends over time  
+- Leading and Trailing menu items in terms of sales quantity and revenue generated    
+- Sales trends over time
+- Customer daily volume  
 
 **Deliverables**
 
-- Café Menu Performance Dashboard  
+- Café Product Performance Dashboard  
 - Insights that support better business decision-making  
 
 ---
