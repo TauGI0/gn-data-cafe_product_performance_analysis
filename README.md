@@ -9,7 +9,7 @@
 
 The goal of this project is to analyze Café X’s sales data to identify:
 
-- The top-performing menu item in terms of quantity sold and revenue  
+- The top-performing menu item for 2023
 - Leading and Trailing menu items in terms of sales quantity and revenue generated    
 - Sales trends over time
 - Customer daily volume  
