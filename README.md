@@ -1,4 +1,4 @@
-# ☕ Café X Product Performance Analysis  
+# Café X Product Performance Analysis  
 *A Data Cleaning, Analysis and Visualization Project*  
 **Prepared by:** Gio Noga  
 **Date:** December 2025  
